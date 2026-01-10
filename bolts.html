@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolt passthrough calculator</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<script src="./data.js"></script>
+
+<script>
+
+function adjust_hole(filament, size) {
+  result = size;
+
+  for (x of filaments[filament].shrinkage) {
+
+      let min = x[0];
+      let max = x[1];
+      let s_min = x[2];
+      let s_max = x[3];
+
+      if (size >= min && size <= max) {
+          const np = (size - min) / (max - min);
+          result += Math.abs(s_min + (s_max - s_min) * np);
+          break;
+      }
+  }
+
+  return Number(result.toFixed(2));
+}
+
+function calculate() {
+
+    const fil = document.getElementById('filament').value;
+    const size = Number(document.getElementById('size').value);
+
+    document.getElementById('size1').innerHTML = bolts[size][1];
+    document.getElementById('size2').innerHTML = bolts[size][2];
+    document.getElementById('size3').innerHTML = bolts[size][3];
+
+    document.getElementById('size1_adj').innerHTML = adjust_hole(fil, bolts[size][1]);
+    document.getElementById('size2_adj').innerHTML = adjust_hole(fil, bolts[size][2]);
+    document.getElementById('size3_adj').innerHTML = adjust_hole(fil, bolts[size][3]);
+}
+
+
+function size_input(value) {
+    document.getElementById('size_value').innerHTML = bolts[value][0];
+}
+
+</script>
+
+<body>
+
+    <a href="./holes.html">Hole calculator</a>
+
+    <h1>Screw passhtrough calculator</h1>
+
+    <p>
+        This simple calculator estimates the optimal diameter for a passthrough hole in common 3D printing materials, taking warping into account.
+    </p>
+
+    <label for="filament">Filament type:<br /></label>
+    <select id="filament" onchange="calculate()"></select>
+    <br /><br />
+
+    <label for="od">Bolt size:<br /></label>
+    <input type="range" min="0" max="27" value="5" id="size" oninput="size_input(this.value)" onchange="calculate()" />
+    <span id="size_value">M3</span>
+    <br /><br />
+
+    <table>
+    <thead>
+      <tr>
+           <th></th>
+           <th>Normal</th>
+           <th>Adjusted</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+          <td class="left">Tight</td>
+          <td id="size1">0</td>
+          <td id="size1_adj">0</td>
+      </tr>
+      <tr>
+          <td class="left">Normal</td>
+          <td id="size2">0</td>
+          <td id="size2_adj">0</td>
+      </tr>
+      <tr>
+          <td class="left">Loose</td>
+          <td id="size3">0</td>
+          <td id="size3_adj">0</td>
+      </tr>
+
+    </tbody>
+
+    </table>
+
+
+
+    
+</body>
+</html>
+

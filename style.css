@@ -1,0 +1,19 @@
+input[type="range"] {
+  width: 200px;
+  margin: 0;
+}
+
+td, th {
+   padding: 0.25em;
+   text-align: center;
+}
+
+th {
+   font-weight: bold;
+   width: 8em;
+}
+
+.left {
+   text-align: left;
+}
+
