@@ -2,6 +2,8 @@
 
 Simple JavaScripts to calculate things for your 3D printer.
 
+https://tomcatmwi.github.io/threaded_insert_calculator/index.html
+
 ##  Threaded insert calculator
 
 Calculates optimal and passthrough hole diameters for threaded inserts
