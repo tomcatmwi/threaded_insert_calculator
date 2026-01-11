@@ -47,6 +47,8 @@ function calculate() {
     result *= filaments[fil].adjustment;
     document.getElementById('result').innerHTML = result.toFixed(2);
 
+    document.getElementById('diff').innerHTML = Math.abs(passthrough - result).toFixed(2);
+
 }
 
 
@@ -70,15 +72,16 @@ function od_input(value) {
     <br /><br />
 
     <label for="od">Outer diameter of the threaded insert (mm):<br /></label>
-    <input type="range" id="od" decimals="2" min="1" max="20" value="4.00" step="0.1" oninput="od_input(this.value)" onchange="calculate()" />
-    <span id="od_value">4.00</span>
+    <input type="range" id="od" decimals="2" min="1" max="20" value="0" step="0.1" oninput="od_input(this.value)" onchange="calculate()" />
+    <span id="od_value">0</span>
     <br /><br />
 
     <table>
     <thead>
       <tr>
            <th>Optimal diameter</th>
-           <th>Passthrough<th>
+           <th>Passthrough</th>
+           <th>Difference</th>
       </tr>
     </thead>
 
@@ -86,6 +89,7 @@ function od_input(value) {
       <tr>
           <td id="result">0</td>
           <td id="passthrough">0</td>
+          <td id="diff">0</td>
       </tr>
 
     </tbody>
